@@ -52,7 +52,7 @@ const HomePage = () => {
       <HomeHeader />
       <FlatList
         data={info}
-        renderItem={({ item }) => <CoffeeCard name={item.name} rating={item.rating} imageUrl={item.imageUrl} address={item.address} distance={item.distance} key={item.id} />}
+        renderItem={({ item }) => <CoffeeCard name={item.name} rating={item.rating} imageUrl={item.image_url} address={item.address} distance={item.distance} key={item.id} />}
         keyExtractor={(item) => item.id}
       />
       <Button title="button" onPress={() => handleClick()} />
