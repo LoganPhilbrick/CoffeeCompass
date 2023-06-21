@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Image } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { Avatar, Button, Card, Text } from "react-native-paper";
 
-const CoffeeCard = ({ name, rating, distance, imageUrl, address, id }) => {
+const CoffeeCard = ({ name, rating, distance, imageUrl, address, id, count }) => {
   const miles = (distance * 0.000621371192).toFixed(1);
 
   let newRating;
@@ -40,16 +40,23 @@ const CoffeeCard = ({ name, rating, distance, imageUrl, address, id }) => {
       break;
   }
   return (
-    <Card key={id} style={{ margin: 20, shadowColor: "white" }}>
+    <Card key={id} style={{ margin: 24, shadowColor: "white" }}>
       <Card.Cover source={{ uri: imageUrl }} />
       <Card.Title title={name} titleVariant="headlineMedium" />
-      <Card.Content>
+      <Card.Content style={styles.reviewContent}>
         {newRating}
+        <Text variant="bodyMedium">{` - ${count} reviews`}</Text>
+      </Card.Content>
+      <Card.Content>
         <Text variant="bodyLarge">{`${miles} mi`}</Text>
         <Text variant="bodyMedium">{address}</Text>
       </Card.Content>
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  reviewContent: { flex: 1, flexDirection: "row", alignItems: "center" },
+});
 
 export default CoffeeCard;
