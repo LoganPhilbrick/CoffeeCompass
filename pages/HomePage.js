@@ -1,5 +1,6 @@
-import { FlatList, View, StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
+import { FlatList, View, Text, StyleSheet } from "react-native";
+import SkeletonBody from "../components/Skeleton";
+import { Button, Divider } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { fetchCoffeeData } from "../api";
 import HomeHeader from "../components/HomeHeader";
@@ -12,6 +13,7 @@ const HomePage = () => {
   const [info, setInfo] = useState({});
   const [location, setLocation] = useState({});
   const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -27,12 +29,14 @@ const HomePage = () => {
   }, []);
 
   const handleClick = () => {
+    setLoading(true);
     const { longitude, latitude } = location;
     fetchCoffeeData(APIKEY, latitude, longitude)
       .then((data) => {
         console.log(data);
         setInfo(data.businesses);
         setLoaded(true);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -42,17 +46,24 @@ const HomePage = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <HomeHeader style={styles.header} />
-      <View style={styles.contentContainer}>
-        {!loaded ? (
+      <HomeHeader />
+      {loading ? (
+        <View style={styles.skeletonView}>
+          <SkeletonBody />
+        </View>
+      ) : !loaded ? (
+        <View style={styles.contentContainer}>
           <Button style={styles.button} mode="contained" title="button" onPress={() => handleClick()}>
             Begin Search
           </Button>
-        ) : (
+        </View>
+      ) : (
+        <View style={styles.contentContainer}>
           <FlatList
             data={info}
             renderItem={({ item }) => (
               <CoffeeCard
+                style={styles.coffeeCard}
                 name={item.name}
                 rating={item.rating}
                 imageUrl={item.image_url}
@@ -64,8 +75,8 @@ const HomePage = () => {
             )}
             keyExtractor={(item) => item.id}
           />
-        )}
-      </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -82,6 +93,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  skeletonView: { flex: 1, alignItems: "center", marginTop: 25 },
 });
 
 export default HomePage;

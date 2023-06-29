@@ -40,7 +40,7 @@ const CoffeeCard = ({ name, rating, distance, imageUrl, address, id, count }) =>
       break;
   }
   return (
-    <Card key={id} style={{ margin: 24, shadowColor: "white" }}>
+    <Card key={id} mode="contained" style={styles.outerCard}>
       <Card.Cover source={{ uri: imageUrl }} />
       <Card.Title title={name} titleVariant="headlineMedium" />
       <Card.Content style={styles.reviewContent}>
@@ -57,6 +57,10 @@ const CoffeeCard = ({ name, rating, distance, imageUrl, address, id, count }) =>
 
 const styles = StyleSheet.create({
   reviewContent: { flex: 1, flexDirection: "row", alignItems: "center" },
+  outerCard: {
+    margin: 24,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
 });
 
 export default CoffeeCard;
