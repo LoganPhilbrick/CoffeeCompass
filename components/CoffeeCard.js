@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   outerCard: {
     margin: 24,
     backgroundColor: "rgba(0, 0, 0, 0)",
+    marginBottom: 0,
   },
 });
 

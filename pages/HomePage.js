@@ -63,7 +63,6 @@ const HomePage = () => {
             data={info}
             renderItem={({ item }) => (
               <CoffeeCard
-                style={styles.coffeeCard}
                 name={item.name}
                 rating={item.rating}
                 imageUrl={item.image_url}
