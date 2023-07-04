@@ -1,6 +1,6 @@
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet } from "react-native";
 import SkeletonBody from "../components/Skeleton";
-import { Button, Divider } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { fetchCoffeeData } from "../api";
 import HomeHeader from "../components/HomeHeader";
@@ -9,7 +9,7 @@ import * as Location from "expo-location";
 
 const APIKEY = "yCv9CY1cY47Mguq02W1yh2eZQItWCWdDS3TsX3jP0Ay0-KLogFQw_TnOTlAOyEZ0HT9bSB0W0SzjyGPywt7xXql4JJYHUCfVxP5EPnbAIu5sXDs8facC_V9blOBCZHYx";
 
-const HomePage = () => {
+const HomePage = ({ navigation }) => {
   const [info, setInfo] = useState({});
   const [location, setLocation] = useState({});
   const [loaded, setLoaded] = useState(false);
@@ -63,13 +63,14 @@ const HomePage = () => {
             data={info}
             renderItem={({ item }) => (
               <CoffeeCard
+                navigation={navigation}
                 name={item.name}
                 rating={item.rating}
                 imageUrl={item.image_url}
                 address={`${item.location.address1} ${item.location.city}, ${item.location.state}`}
                 count={item.review_count}
                 distance={item.distance}
-                key={item.id}
+                id={item.id}
               />
             )}
             keyExtractor={(item) => item.id}

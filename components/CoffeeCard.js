@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Image, StyleSheet } from "react-native";
-import { Avatar, Button, Card, Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 
-const CoffeeCard = ({ name, rating, distance, imageUrl, address, id, count }) => {
+const CoffeeCard = ({ name, rating, distance, imageUrl, address, id, count, navigation }) => {
   const miles = (distance * 0.000621371192).toFixed(1);
 
   let newRating;
@@ -40,7 +40,7 @@ const CoffeeCard = ({ name, rating, distance, imageUrl, address, id, count }) =>
       break;
   }
   return (
-    <Card key={id} mode="contained" style={styles.outerCard}>
+    <Card key={id} mode="contained" style={styles.outerCard} onPress={() => navigation.navigate("Details", { id: `${id}` })}>
       <Card.Cover source={{ uri: imageUrl }} />
       <Card.Title title={name} titleVariant="headlineMedium" />
       <Card.Content style={styles.reviewContent}>
