@@ -1,5 +1,5 @@
 import { FlatList, View, StyleSheet } from "react-native";
-import SkeletonBody from "../components/Skeleton";
+import SkeletonBody from "../components/HomeSkeleton";
 import { Button } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { fetchCoffeeData } from "../api";
@@ -33,7 +33,6 @@ const HomePage = ({ navigation }) => {
     const { longitude, latitude } = location;
     fetchCoffeeData(APIKEY, latitude, longitude)
       .then((data) => {
-        console.log(data);
         setInfo(data.businesses);
         setLoaded(true);
         setLoading(false);

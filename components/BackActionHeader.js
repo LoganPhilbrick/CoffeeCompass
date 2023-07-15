@@ -1,15 +1,13 @@
 import * as React from "react";
 import { Appbar } from "react-native-paper";
-import { Icon } from "react-native-elements";
-import { View } from "react-native";
 
-const HomeHeader = () => {
+const BackHeader = ({ navigation }) => {
   return (
     <Appbar.Header style={{ backgroundColor: "#42a5f5" }}>
-      <Icon iconStyle={{ margin: 15, color: "white" }} name="local-cafe" />
+      <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
       <Appbar.Content titleStyle={{ color: "white" }} title="CoffeeCompass" />
     </Appbar.Header>
   );
 };
 
-export default HomeHeader;
+export default BackHeader;

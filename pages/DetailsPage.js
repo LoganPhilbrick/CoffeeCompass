@@ -1,17 +1,32 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Image, FlatList, ImageBackground, StyleSheet, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import { fetchDetails } from "../api";
+import { fetchDetails, fetchReviews } from "../api";
+import DetailsHeader from "../components/DetailsHeader";
+import ReviewCard from "../components/ReviewCard";
+import DetailsSkeleton from "../components/DetailsSkeleton";
+import BackHeader from "../components/BackActionHeader";
 
 const APIKEY = "yCv9CY1cY47Mguq02W1yh2eZQItWCWdDS3TsX3jP0Ay0-KLogFQw_TnOTlAOyEZ0HT9bSB0W0SzjyGPywt7xXql4JJYHUCfVxP5EPnbAIu5sXDs8facC_V9blOBCZHYx";
 
 const DetailsPage = ({ navigation, route }) => {
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState({});
+  const [reviews, setReviews] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleDetails = () => {
+    setLoading(true);
     const id = `${route.params.id}`;
     fetchDetails(APIKEY, id)
       .then((res) => {
         setDetails(res);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    fetchReviews(APIKEY, id)
+      .then((res) => {
+        setReviews(res);
       })
       .catch((error) => {
         console.log(error);
@@ -22,21 +37,59 @@ const DetailsPage = ({ navigation, route }) => {
     handleDetails();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Text>{details?.name}</Text>
+  switch (details.rating) {
+    case 5:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/FiveLg.png")} />;
+      break;
+    case 4.5:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/FourHalfLg.png")} />;
+      break;
+    case 4:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/FourLg.png")} />;
+      break;
+    case 3.5:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/ThreeHalfLg.png")} />;
+      break;
+    case 3:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/ThreeLg.png")} />;
+      break;
+    case 2.5:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/TwoHalfLg.png")} />;
+      break;
+    case 2:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/TwoLg.png")} />;
+      break;
+    case 1.5:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/OneHalfLg.png")} />;
+      break;
+    case 1:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/OneLg.png")} />;
+      break;
+    default:
+      newRating = <Image style={{ resizeMode: "contain", width: 120 }} source={require("../yelpAssets/ZeroLg.png")} />;
+      break;
+  }
+
+  return loading ? (
+    <View style={{ flex: 1 }}>
+      <BackHeader navigation={navigation} />
+      <View style={styles.skeletonView}>
+        <DetailsSkeleton />
+      </View>
     </View>
+  ) : (
+    <FlatList
+      ListHeaderComponent={<DetailsHeader details={details} navigation={navigation} />}
+      ListFooterComponent={() => <View style={{ margin: 12 }}></View>}
+      data={reviews.reviews}
+      renderItem={({ item }) => <ReviewCard user={item.user.name} rating={item.rating} time={item.time_created} url={item.url} review={item.text} />}
+      keyExtractor={(item) => item.id}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  skeletonView: { flex: 1, alignItems: "center", marginTop: 25 },
 });
 
 export default DetailsPage;
