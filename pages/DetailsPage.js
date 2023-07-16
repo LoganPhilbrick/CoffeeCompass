@@ -5,6 +5,7 @@ import DetailsHeader from "../components/DetailsHeader";
 import ReviewCard from "../components/ReviewCard";
 import DetailsSkeleton from "../components/DetailsSkeleton";
 import BackHeader from "../components/BackActionHeader";
+import PhotosMap from "../components/PhotosMap";
 
 const APIKEY = "yCv9CY1cY47Mguq02W1yh2eZQItWCWdDS3TsX3jP0Ay0-KLogFQw_TnOTlAOyEZ0HT9bSB0W0SzjyGPywt7xXql4JJYHUCfVxP5EPnbAIu5sXDs8facC_V9blOBCZHYx";
 
@@ -12,6 +13,7 @@ const DetailsPage = ({ navigation, route }) => {
   const [details, setDetails] = useState({});
   const [reviews, setReviews] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showReviews, setShowReviews] = useState(true);
 
   const handleDetails = () => {
     setLoading(true);
@@ -77,14 +79,28 @@ const DetailsPage = ({ navigation, route }) => {
         <DetailsSkeleton />
       </View>
     </View>
+  ) : showReviews ? (
+    <View>
+      <BackHeader navigation={navigation} />
+      <FlatList
+        ListHeaderComponent={<DetailsHeader details={details} navigation={navigation} showReviews={showReviews} setShowReviews={setShowReviews} />}
+        ListFooterComponent={() => <View style={{ margin: 69 }}></View>}
+        data={reviews.reviews}
+        renderItem={({ item }) => <ReviewCard user={item.user.name} rating={item.rating} time={item.time_created} url={item.url} review={item.text} />}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   ) : (
-    <FlatList
-      ListHeaderComponent={<DetailsHeader details={details} navigation={navigation} />}
-      ListFooterComponent={() => <View style={{ margin: 12 }}></View>}
-      data={reviews.reviews}
-      renderItem={({ item }) => <ReviewCard user={item.user.name} rating={item.rating} time={item.time_created} url={item.url} review={item.text} />}
-      keyExtractor={(item) => item.id}
-    />
+    <View>
+      <BackHeader navigation={navigation} />
+      <FlatList
+        ListHeaderComponent={<DetailsHeader details={details} navigation={navigation} showReviews={showReviews} setShowReviews={setShowReviews} />}
+        ListFooterComponent={() => <View style={{ margin: 69 }}></View>}
+        data={details.photos}
+        renderItem={({ item, index }) => <PhotosMap item={item} index={index} />}
+        keyExtractor={(index) => index}
+      />
+    </View>
   );
 };
 

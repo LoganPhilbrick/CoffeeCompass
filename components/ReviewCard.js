@@ -72,8 +72,8 @@ const ReviewCard = ({ user, review, rating, time, url }) => {
 const styles = StyleSheet.create({
   outerCard: {
     marginHorizontal: 24,
-    marginTop: 24,
-    backgroundColor: "#42a5f5",
+    marginVertical: 24,
+    backgroundColor: "#664E4C",
   },
   text: {
     color: "white",

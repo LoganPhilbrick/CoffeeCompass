@@ -45,7 +45,7 @@ const HomePage = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <HomeHeader />
+      <HomeHeader handleClick={handleClick} loaded={loaded} />
       {loading ? (
         <View style={styles.skeletonView}>
           <SkeletonBody />
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 36,
     width: 200,
-    backgroundColor: "#42a5f5",
+    backgroundColor: "#A3B36B",
   },
   contentContainer: {
     flex: 1,
