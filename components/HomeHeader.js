@@ -4,15 +4,15 @@ import { Icon } from "react-native-elements";
 
 const HomeHeader = ({ handleClick, loaded }) => {
   return (
-    <Appbar.Header style={{ backgroundColor: "#C1D37F" }}>
+    <Appbar.Header style={{ backgroundColor: "#66bb6a" }}>
       <Icon iconStyle={{ margin: 15, color: "white" }} name="local-cafe" />
-      <Appbar.Content titleStyle={{ color: "white" }} title="CoffeeCompass" />
+      <Appbar.Content titleStyle={{ color: "white", marginRight: "auto" }} title="CoffeeCompass" />
       {loaded ? (
         <Button
-          mode="elevated"
+          mode="contained"
           textColor="white"
           style={{
-            backgroundColor: "#A3B36B",
+            backgroundColor: "#81c784",
             marginRight: 10,
           }}
           onPress={() => handleClick()}

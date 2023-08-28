@@ -82,9 +82,10 @@ const HomePage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 36,
+    top: "85%",
     width: 200,
-    backgroundColor: "#A3B36B",
+    backgroundColor: "#66bb6a",
+    position: "absolute",
   },
   contentContainer: {
     flex: 1,

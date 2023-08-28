@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   outerCard: {
     marginHorizontal: 24,
     marginVertical: 24,
-    backgroundColor: "#664E4C",
+    backgroundColor: "#66bb6a",
   },
   text: {
     color: "white",

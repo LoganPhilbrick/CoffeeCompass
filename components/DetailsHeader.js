@@ -19,19 +19,41 @@ const DetailsHeader = ({ details, showReviews, setShowReviews }) => {
       </ImageBackground>
       {showReviews ? (
         <View style={{ flexDirection: "row", justifyContent: "center", margin: 24, marginTop: 48 }}>
-          <Button mode="elevated" buttonColor="#F0E2A3" textColor="#664E4C" style={{ borderRadius: 0, height: 60, width: 110, justifyContent: "center" }}>
+          <Button
+            mode="elevated"
+            buttonColor="#81c784"
+            textColor="white"
+            style={{ borderBottomLeftRadius: 10, borderTopLeftRadius: 10, borderRadius: 0, height: 60, width: 110, justifyContent: "center" }}
+          >
             Reviews
           </Button>
-          <Button mode="elevated" buttonColor="white" textColor="#664E4C" style={{ borderRadius: 0, height: 60, width: 110, justifyContent: "center" }} onPress={() => setShowReviews(false)}>
+          <Button
+            mode="elevated"
+            buttonColor="white"
+            textColor="#81c784"
+            style={{ borderBottomRightRadius: 10, borderTopRightRadius: 10, borderRadius: 0, height: 60, width: 110, justifyContent: "center" }}
+            onPress={() => setShowReviews(false)}
+          >
             Photos
           </Button>
         </View>
       ) : (
         <View style={{ flexDirection: "row", justifyContent: "center", margin: 24, marginTop: 48 }}>
-          <Button mode="elevated" buttonColor="white" textColor="#664E4C" style={{ borderRadius: 0, height: 60, width: 110, justifyContent: "center" }} onPress={() => setShowReviews(true)}>
+          <Button
+            mode="elevated"
+            buttonColor="white"
+            textColor="#81c784"
+            style={{ borderBottomLeftRadius: 10, borderTopLeftRadius: 10, borderRadius: 0, height: 60, width: 110, justifyContent: "center" }}
+            onPress={() => setShowReviews(true)}
+          >
             Reviews
           </Button>
-          <Button mode="elevated" buttonColor="#F0E2A3" textColor="#664E4C" style={{ borderRadius: 0, height: 60, width: 110, justifyContent: "center" }}>
+          <Button
+            mode="elevated"
+            buttonColor="#81c784"
+            textColor="white"
+            style={{ borderBottomRightRadius: 10, borderTopRightRadius: 10, borderRadius: 0, height: 60, width: 110, justifyContent: "center" }}
+          >
             Photos
           </Button>
         </View>
