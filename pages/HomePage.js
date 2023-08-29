@@ -82,8 +82,9 @@ const HomePage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   button: {
-    top: "85%",
-    width: 200,
+    top: "90%",
+    width: "80%",
+    padding: 5,
     backgroundColor: "#66bb6a",
     position: "absolute",
   },
