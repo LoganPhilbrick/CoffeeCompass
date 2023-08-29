@@ -17,7 +17,7 @@ const HomeHeader = ({ handleClick, loaded }) => {
           }}
           onPress={() => handleClick()}
         >
-          Redo Search
+          Refresh
         </Button>
       ) : (
         <></>
